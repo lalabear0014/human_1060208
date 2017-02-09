@@ -1,25 +1,58 @@
-<h1>Events List</h1>
+<div class="container">
+    <div id="shop_head">
+    	<h1>Events List</h1>
+    	<%= form_tag events_path, :method => :get do %>
+		  <%= text_field_tag "keyword" %>
+		  <%= submit_tag "Search", :class => "btn btn-warning" %>
+		<% end %>
+    </div>
+<div id="shop_main" class="row">
+    	<div class="col-md-10 col-sm-9">
+			<table class="table">
+				<% @events.each do |e| %>
+					<tr>
+						<td>
+							<%= e.name %>
+						</td>
+						<td>
+							<%= link_to 'Show', event_path(e), :class => "btn btn-primary" %>
+							<%= link_to 'Edit', edit_event_path(e), :class => "btn btn-success" %>
+							<%= link_to 'Delete', event_path(e), :method => :delete, :class => "btn btn-danger" %>
+						</td>
+						<td>
+							<% Time.zone = "Taipei" %>
+							<%= e.updated_at %>
+						</td>		
+					</tr>
+				<% end %>
+			</table>
+			<%= link_to 'New Event', new_event_path, :class => "btn btn-default" %>
+			<%= paginate @events %>
+    	</div>
 
-<%= form_tag events_path, :method => :get do %>
-  <%= text_field_tag "keyword" %>
-  <%= submit_tag "Search", :class => "btn btn-warning" %>
-<% end %>
+    	<div class="col-md-2 col-sm-3">
+    		<div class="panel panel-primary">
+				<div class="panel-heading">功能表</div>
+				<div class="panel-body">
+					<div class="alert alert-success">
+					  歡迎光臨
+					</div>
 
-<table class="table">
-	<% @events.each do |e| %>
-		<tr>
-			<td>
-				<%= e.name %>
-			</td>
-			<td>
-				<%= link_to 'Show', event_path(e), :class => "btn btn-primary" %>
-				<%= link_to 'Edit', edit_event_path(e), :class => "btn btn-success" %>
-				<%= link_to 'Delete', event_path(e), :method => :delete, :class => "btn btn-danger" %>
-			</td>			
-		</tr>
-	<% end %>
-</table>
+					<%= link_to '回首頁', events_path, :class => "btn btn-block btn-primary" %>
+					
+					<a href="user.php?op=user_display&user_sn={$login_user.user_sn}" class="btn btn-block btn-info">我的帳號</a>
+					
+					<a href="tool.php?op=goods_form" class="btn btn-block btn-success">發布商品</a>
+					
+					<a href="user.php?op=user_logout" class="btn btn-block btn-danger">登出</a>
+				</div>
+			</div>
+    	</div>
+    </div>
 
-<%= link_to 'New Event', new_event_path, :class => "btn btn-default" %>
-
-<%= paginate @events %>
+    <div id="shop_foot" >
+    	<div>地址：XX市XX區XX路XX巷XX號</div>
+    	<div>電話：(06)2345678</div>
+    	<div>版權所有 copyright © 2016 tad0616.net. All Rights Reserved. </div>
+    </div>
+</div>
