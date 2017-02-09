@@ -1,11 +1,7 @@
 <%= form_for @event, :url => events_path do |f| %>
 
-    <%= f.label :name, "Name" %>
-    <%= f.text_field :name %>
+    <%= render :partial => "form", :locals => { :f => f } %>
 
-    <%= f.label :description, "Description" %>
-    <%= f.text_area :description %>
-
-    <%= f.submit "Create" %>
+    <%= f.submit "Create", :class => "btn btn-primary" %>
     
 <% end %>
