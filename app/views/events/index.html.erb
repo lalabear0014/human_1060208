@@ -1,1 +1,25 @@
+<h1>Events List</h1>
+
+<%= form_tag events_path, :method => :get do %>
+  <%= text_field_tag "keyword" %>
+  <%= submit_tag "Search" %>
+<% end %>
+
+<table class="table">
+	<% @events.each do |e| %>
+		<tr>
+			<td>
+				<%= e.name %>
+			</td>
+			<td>
+				<%= link_to 'Show', event_path(e) %>
+				<%= link_to 'Edit', edit_event_path(e) %>
+				<%= link_to 'Delete', event_path(e), :method => :delete %>
+			</td>			
+		</tr>
+	<% end %>
+</table>
+
+<%= link_to 'New Event', new_event_path %>
+
 <%= paginate @events %>
