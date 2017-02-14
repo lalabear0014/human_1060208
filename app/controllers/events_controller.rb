@@ -17,11 +17,13 @@ class EventsController < ApplicationController
 	# GET /events/new
 	def new
 		@event = Event.new
+		authorize @event
 	end
 
 	# POST /events
 	def create
 		@event = Event.new( event_params )
+		authorize @event
 
 		@event.user = current_user
 		
@@ -41,6 +43,8 @@ class EventsController < ApplicationController
 
 	# PATCH /events/:id
 	def update
+		authorize @event
+    
 		if @event.update( event_params )
 			flash[:notice] = "編輯成功"
 			redirect_to event_path(@event)
@@ -51,6 +55,8 @@ class EventsController < ApplicationController
 
 	# DELETE /events/:id
 	def destroy
+		authorize @event
+
 		@event.destroy
 		flash[:alert] = "刪除成功"
 

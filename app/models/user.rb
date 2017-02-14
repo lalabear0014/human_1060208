@@ -10,4 +10,12 @@ class User < ApplicationRecord
 		self.role == "admin"
 	end
 
+	def boss?
+		self.role == "boss"
+	end
+
+	def staff?
+		self.role == "staff"
+	end
+
 end
