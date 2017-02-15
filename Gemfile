@@ -27,7 +27,9 @@ gem 'kaminari'
 
 gem 'bootstrap-sass', '~> 3.3.6'
 
-gem "pundit"
+gem 'pundit'
+
+gem 'cancancan'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
