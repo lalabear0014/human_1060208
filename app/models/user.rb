@@ -6,6 +6,10 @@ class User < ApplicationRecord
   
 	has_many :events
 
+	def short_name
+  		self.email.split("@").first
+  	end
+
 	def admin?
 		self.role == "admin"
 	end

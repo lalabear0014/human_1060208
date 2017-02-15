@@ -11,6 +11,7 @@ class EventsController < ApplicationController
 
 	# GET /events/:id
 	def show
+		authorize @event
 		@page_title = @event.name
 	end
 
@@ -38,7 +39,7 @@ class EventsController < ApplicationController
 
 	# GET /events/:id/edit
 	def edit
-		
+		authorize @event
 	end
 
 	# PATCH /events/:id

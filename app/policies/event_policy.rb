@@ -1,15 +1,15 @@
 class EventPolicy < ApplicationPolicy
   
-  def index?
+  # def index?
     
-  end
+  # end
 
   def create?
-    admin? || boss?
+    admin? || boss? || staff?
   end
 
   def new?
-    admin? || boss?
+    admin? || boss? || staff?
   end
 
   def update?
@@ -21,7 +21,7 @@ class EventPolicy < ApplicationPolicy
   end
 
   def destroy?
-    admin? || boss?
+    admin?
   end
 
   def admin?
