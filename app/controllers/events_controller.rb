@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
 
-	load_and_authorize_resource param_method: :event_params
-	authorize_resource :event
+	# load_and_authorize_resource param_method: :event_params
+	# authorize_resource :event, :except => [:index]
 
 	before_action :authenticate_user!, :except => [:index]
 
@@ -14,23 +14,21 @@ class EventsController < ApplicationController
 
 	# GET /events/:id
 	def show
-		# authorize @event
-		authorize! :read, @event
+		authorize @event
 		@page_title = @event.name
 	end
 
 	# GET /events/new
 	def new
 		@event = Event.new
-		# authorize @event
+		authorize @event
 	end
 
 	# POST /events
 	def create
 		@event = Event.new( event_params )
-		# authorize @event
-		authorize! :create, @event
-
+		authorize @event
+		
 		@event.user = current_user
 		
 		if @event.save
@@ -44,14 +42,13 @@ class EventsController < ApplicationController
 
 	# GET /events/:id/edit
 	def edit
-		# authorize @event
+		authorize @event
 	end
 
 	# PATCH /events/:id
 	def update
-		# authorize @event
-		authorize! :update, @event
-    
+		authorize @event
+		
 		if @event.update_attributes( event_params )
 			flash[:notice] = "編輯成功"
 			redirect_to event_path(@event)
@@ -62,9 +59,8 @@ class EventsController < ApplicationController
 
 	# DELETE /events/:id
 	def destroy
-		# authorize @event
-		authorize! :destroy, @event
-
+		authorize @event
+		
 		@event.destroy
 		flash[:alert] = "刪除成功"
 
