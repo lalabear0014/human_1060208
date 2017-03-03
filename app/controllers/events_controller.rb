@@ -85,7 +85,7 @@ class EventsController < ApplicationController
 			@events = Event.all	
 		end
 
-		@events = @events.page( params[:page] ).per(10)
+		@events = @events.page( params[:page] ).per(100)
 	end
 
 end

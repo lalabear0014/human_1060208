@@ -8,50 +8,32 @@
 		<% end %>
     </div>
 	<div id="shop_main" class="row">
-    	<div class="col-md-10 col-sm-9">
-			<table class="table">
-				<% @events.each do |e| %>
-					<tr>
-						<td>
-							<%= e.name %>
-						</td>
-						<td>
-							<%= e.user.try(:short_name) %>
-						</td>
-						<td>
-							<%= link_to 'Show', event_path(e), :class => "btn btn-primary" %>
-							<%= link_to 'Edit', edit_event_path(e), :class => "btn btn-success" %>
-							<%= link_to 'Delete', event_path(e), :method => :delete, :class => "btn btn-danger" %>	
-						</td>
-						<td>
-							<% Time.zone = "Taipei" %>
-							<%= e.updated_at %>
-						</td>		
-					</tr>
+		<table class="table">
+			<% @events.each do |e| %>
+				<% if current_user == e.user %>
+				<tr>
+					<td>
+						<%= link_to e.name, event_path(e), :class => "btn btn-default" %>
+					</td>
+					<td>
+						<%= e.user.try(:short_name) %>
+					</td>
+					<td>						
+						<%= link_to 'Edit', edit_event_path(e), :class => "btn btn-success", :type => 'edit' %>
+						<% if e.user.admin? %>
+							<%= link_to 'Delete', event_path(e), :method => :delete, :class => "btn btn-danger" %>
+						<% end %>					
+					</td>
+					<td>
+						<% Time.zone = "Taipei" %>
+						<%= e.updated_at %>
+					</td>		
+				</tr>
 				<% end %>
-			</table>
-			<%= link_to 'New Event', new_event_path, :class => "btn btn-default" %>
-			<%= paginate @events %>
-    	</div>
-
-    	<div class="col-md-2 col-sm-3">
-    		<div class="panel panel-primary">
-				<div class="panel-heading">功能表</div>
-				<div class="panel-body">
-					<div class="alert alert-success">
-					  歡迎光臨
-					</div>
-
-					<%= link_to '回首頁', events_path, :class => "btn btn-block btn-primary" %>
-					
-					<a href="user.php?op=user_display&user_sn={$login_user.user_sn}" class="btn btn-block btn-info">我的帳號</a>
-					
-					<a href="tool.php?op=goods_form" class="btn btn-block btn-success">發布商品</a>
-					
-					<a href="user.php?op=user_logout" class="btn btn-block btn-danger">登出</a>
-				</div>
-			</div>
-    	</div>
+			<% end %>
+		</table>
+		<%= link_to 'New Event', new_event_path, :class => "btn btn-primary" %>
+		<%= paginate @events %>
     </div>
 
     <div id="shop_foot" >
