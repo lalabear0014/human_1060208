@@ -1,5 +1,26 @@
-<h2><%= @event.name %></h2>
+<div class="container">
+    <div id="shop_head">
+		
+	</div>
+	<div id="shop_main" class="row">
+		<table class="table">
+			<tr>
+				<td><h2><%= @event.name %></h2></td>
+				<td>
+					<% if @event.sex == true %>
+						He is a boy.
+					<% else %>
+						She is a girl.
+					<% end %>
+				</td>
+				<td>Description: <%= simple_format @event.description %></td>
+			</tr>
+		</table>
+	</div>
+	<p><%= link_to 'Back to index', events_path, :class => "btn btn-default" %></p>
 
-<%= simple_format @event.description %>
-
-<p><%= link_to 'Back to index', events_path %></p>
+	<div id="shop_foot" >
+    	<div>地址：XX市XX區XX路XX巷XX號</div>
+    	<div>電話：(06)2345678</div>
+    	<div>版權所有 copyright © 2016 tad0616.net. All Rights Reserved. </div>
+    </div>

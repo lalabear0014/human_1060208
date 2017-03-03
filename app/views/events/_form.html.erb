@@ -7,11 +7,19 @@
 <% end %>
 
 <div class="form-group">
-	<%= f.label :name, "Name" %>
+	<%= f.label :name, "Name: " %>
 	<%= f.text_field :name, :class => "form-control" %>
 </div>
 
 <div class="form-group">
-	<%= f.label :description, "Description" %>
+	<%= f.label :sex, "Sex: " %>
+	<%= f.radio_button :sex, true %>
+	<%= f.label :sex, "Boy", :value => "Boy" %>
+	<%= f.radio_button :sex, false %>
+	<%= f.label :sex, "Girl", :value => "Girl" %>
+</div>
+
+<div class="form-group">
+	<%= f.label :description, "Description: " %>
 	<%= f.text_area :description, :class => "form-control" %>
 </div>
