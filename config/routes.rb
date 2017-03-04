@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   		resources :events
   	end
 
-	resources :events
+ 	resources :events do
+  		resources :messages, :controller => "event_messages"
+  	end
 
   	root to: "events#index"
 
