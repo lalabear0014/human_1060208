@@ -3,19 +3,16 @@
 		
 	</div>
 	<div id="shop_main" class="row">
-		<table class="table">
-			<tr>
-				<td><h2><%= @event.name %></h2></td>
-				<td>
-					<% if @event.sex == true %>
-						He is a boy.
-					<% else %>
-						She is a girl.
-					<% end %>
-				</td>
-				<td>Description: <%= simple_format @event.description %></td>
-			</tr>
-		</table>
+		<h2><%= @event.name %></h2>
+		<p>
+			<% if @event.sex == true %>
+				He is a boy.
+			<% else %>
+				She is a girl.
+			<% end %>
+		</p>
+		<p>QQ/WeChat: <%= simple_format @event.contact %></p>
+		<p>Description: <%= simple_format @event.description %></p>
 	</div>
 	<p><%= link_to 'Back to index', events_path, :class => "btn btn-default" %></p>
 
