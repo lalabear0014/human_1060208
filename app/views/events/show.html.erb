@@ -11,7 +11,10 @@
 				She is a girl.
 			<% end %>
 		</p>
-		<p>QQ/WeChat: <%= simple_format @event.contact %></p>
+		<p>Email: <%= @event.email %></p>
+		<p>Phone: <%= @event.phone %></p>
+		<p>QQ/WeChat: <%= @event.contact %></p>
+		<p>Address: <%= @event.address %></p>
 		<p>Description: <%= simple_format @event.description %></p>
 	</div>
 	<p><%= link_to 'Back to index', events_path, :class => "btn btn-default" %></p>
