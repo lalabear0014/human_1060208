@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   
 	has_many :events
+	has_many :messages
 
 	def short_name
   		self.email.split("@").first
@@ -15,11 +16,11 @@ class User < ApplicationRecord
 	end
 
 	def boss?
-		self.role == "boss"
+		self.role == "boss" || self.role == "admin"
 	end
 
 	def staff?
-		self.role == "staff"
+		self.role == "staff" || self.role == "boss" || self.role == "admin"
 	end
 
 end

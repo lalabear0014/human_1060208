@@ -1,4 +1,4 @@
-class EventPolicy < ApplicationPolicy
+class MessagePolicy < ApplicationPolicy
   
   # def index?
     

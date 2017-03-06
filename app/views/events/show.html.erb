@@ -16,8 +16,28 @@
 		<p>QQ/WeChat: <%= @event.contact %></p>
 		<p>Address: <%= @event.address %></p>
 		<p>Description: <%= simple_format @event.description %></p>
+		<h4>Messages: </h4>
+		<table class="table">
+			<% @event.messages.each do |e| %>
+				<tr>
+					<td>
+						<%= e.content %>
+					</td>
+					<td>				
+						<%= link_to 'Edit', edit_event_message_path(@event, e), :class => "btn btn-primary" %>
+						<%= link_to 'Delete', event_message_path(@event, e), :method => :delete, :data => { :confirm => "Are you sure?" }, :class => "btn btn-danger" %>
+						<% Time.zone = "Taipei" %>
+						<%= e.updated_at %>
+					</td>			
+				</tr>
+			<% end %>
+		</table>
+
+		<p>
+			<%= link_to "New message", new_event_message_path(@event), :class => "btn btn-info" %>
+			<%= link_to 'Back to index', events_path, :class => "btn btn-info" %>
+		</p>
 	</div>
-	<p><%= link_to 'Back to index', events_path, :class => "btn btn-default" %></p>
 
 	<div id="shop_foot" >
     	<div>地址：XX市XX區XX路XX巷XX號</div>

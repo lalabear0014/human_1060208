@@ -5,7 +5,7 @@ class EventsController < ApplicationController
 
 	before_action :authenticate_user!, :except => [:index]
 
-	before_action :set_event, :only => [:show, :dashboard, :edit, :update, :destroy]
+	before_action :set_event, :only => [:show, :edit, :update, :destroy]
 
 	# GET /events
 	def index
@@ -14,7 +14,6 @@ class EventsController < ApplicationController
 
 	# GET /events/:id
 	def show
-		authorize @event
 		@page_title = @event.name
 	end
 
@@ -42,13 +41,11 @@ class EventsController < ApplicationController
 
 	# GET /events/:id/edit
 	def edit
-		authorize @event
+		
 	end
 
 	# PATCH /events/:id
 	def update
-		authorize @event
-		
 		if @event.update_attributes( event_params )
 			flash[:notice] = "編輯成功"
 			redirect_to event_path(@event)
@@ -59,8 +56,6 @@ class EventsController < ApplicationController
 
 	# DELETE /events/:id
 	def destroy
-		authorize @event
-		
 		@event.destroy
 		flash[:alert] = "刪除成功"
 
@@ -71,6 +66,7 @@ class EventsController < ApplicationController
 
 	def set_event
 		@event = Event.find( params[:id] )
+		authorize @event
 	end
 
 	def event_params

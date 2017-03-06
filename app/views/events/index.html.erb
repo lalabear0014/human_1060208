@@ -22,7 +22,7 @@
 						<%= link_to 'Edit', edit_event_path(e), :class => "btn btn-success", :type => 'edit' %>
 						<% if e.user.admin? %>
 							<%= link_to 'Delete', event_path(e), :method => :delete, :class => "btn btn-danger" %>
-						<% end %>					
+						<% end %>
 					</td>
 					<td>
 						<% Time.zone = "Taipei" %>
