@@ -73,21 +73,29 @@ class EventsController < ApplicationController
 
 	def prepare_variable_for_index_template
 
-		if params[:keyword]
-			@events = Event.where( [ "name like ?", "%#{params[:keyword]}%" ] )
-		elsif current_user
+		if current_user
 			if current_user.admin?
 				@events = Event.all
+				if params[:keyword]
+					@events = @events.where( [ "name like ?", "%#{params[:keyword]}%" ] )
+				end
 			elsif current_user.boss?	# 如果current_user是boss
 				# 抓boss及staff的events
 				@events = Event.joins(:user).merge( User.where(role: ['boss','staff']) )
 				# @events = Event.joins(:user).merge( User.where("role=? OR role=?","boss","staff") )
+				if params[:keyword]
+					@events = @events.where( [ "name like ?", "%#{params[:keyword]}%" ] )
+				end
 			else
-				@events = current_user.events
+				user = current_user
+				@events = user.events
+				if params[:keyword]
+					@events = @events.where( [ "name like ?", "%#{params[:keyword]}%" ] )
+				end
 			end
-			@events = @events.page( params[:page] ).per(100)
+		@events = @events.page( params[:page] ).per(5)
 		end
-	
+		
 	end
 
 end
