@@ -13,11 +13,11 @@ class MessagePolicy < ApplicationPolicy
   end
 
   def update?
-    staff? || record.user == user
+    admin? || record.user == user
   end
 
   def edit?
-    staff? || record.user == user
+    admin? || record.user == user
   end
 
   def destroy?

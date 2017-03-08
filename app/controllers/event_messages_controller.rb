@@ -62,7 +62,7 @@ class EventMessagesController < ApplicationController
 
 	def set_message
 		@message = @event.messages.find( params[:id] )
-		authorize :message
+		authorize @message
 	end
 
 end
