@@ -16,11 +16,11 @@ class User < ApplicationRecord
 	end
 
 	def boss?
-		self.role == "boss" || self.role == "admin"
+		self.role == "boss" || admin?
 	end
 
 	def staff?
-		self.role == "staff" || self.role == "boss" || self.role == "admin"
+		self.role == "staff" || boss? || admin?
 	end
 
 end

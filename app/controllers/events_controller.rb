@@ -25,10 +25,8 @@ class EventsController < ApplicationController
 
 	# POST /events
 	def create
-		@event = Event.new( event_params )
+		@event = current_user.events.build( event_params )
 		authorize @event
-		
-		@event.user = current_user
 		
 		if @event.save
 			flash[:notice] = "新增成功"
@@ -58,7 +56,7 @@ class EventsController < ApplicationController
 	def destroy
 		@event.destroy
 		flash[:alert] = "刪除成功"
-
+		
 		redirect_to events_path
 	end
 
@@ -77,11 +75,19 @@ class EventsController < ApplicationController
 
 		if params[:keyword]
 			@events = Event.where( [ "name like ?", "%#{params[:keyword]}%" ] )
-		else
-			@events = Event.all	
+		elsif current_user
+			if current_user.admin?
+				@events = Event.all
+			elsif current_user.boss?	# 如果current_user是boss
+				# 抓boss及staff的events
+				@events = Event.joins(:user).merge( User.where(role: ['boss','staff']) )
+				# @events = Event.joins(:user).merge( User.where("role=? OR role=?","boss","staff") )
+			else
+				@events = current_user.events
+			end
+			@events = @events.page( params[:page] ).per(100)
 		end
-
-		@events = @events.page( params[:page] ).per(100)
+	
 	end
 
 end

@@ -13,12 +13,12 @@ class EventMessagesController < ApplicationController
 
 	def new
 		@message = @event.messages.build
-		authorize @message
+		authorize :message
 	end
 
 	def create 
 		@message = @event.messages.build( message_params )
-		authorize @message
+		authorize :message
 
 		@message.user = current_user
 
@@ -35,34 +35,25 @@ class EventMessagesController < ApplicationController
 	end
 
 	def update
-		if current_user == @message.user
-			if @message.update( message_params )
-				flash[:notice] = "編輯成功"
-				redirect_to event_path(@event)
-			else
-				render :action => :edit
-			end
-		else
-			flash[:alert] = "非創建者"
+		if @message.update( message_params )
+			flash[:notice] = "編輯成功"
 			redirect_to event_path(@event)
-		end		
+		else
+			render :action => :edit
+		end	
 	end
 
 	def destroy
-		if current_user == @message.user
-			@message.destroy
-			flash[:alert] = "刪除成功"
-		else
-			flash[:alert] = "非創建者"
-		end
-
+		@message.destroy
+		flash[:alert] = "刪除成功"
+		
 		redirect_to event_path(@event)
 	end
 
 	protected
 
 	def message_params
-		params.require(:message).permit(:content)
+		params.require(:message).permit(:content, pets_attributes: [:content, :user,:message])
 	end
 
 	def set_event
@@ -71,7 +62,7 @@ class EventMessagesController < ApplicationController
 
 	def set_message
 		@message = @event.messages.find( params[:id] )
-		authorize @message
+		authorize :message
 	end
 
 end
