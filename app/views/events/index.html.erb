@@ -1,49 +1,49 @@
 <% if current_user %>
 <div class="container">
     <div id="shop_head">
-    	<h1>Events List</h1>
-    	<%= form_tag events_path, :method => :get do %>
-		  <%= text_field_tag "keyword" %>
-		  <%= submit_tag "Search", :class => "btn btn-warning" %>
-		<% end %>
+      <h1>Events List</h1>
+      <%= form_tag events_path, :method => :get do %>
+      <%= text_field_tag "keyword" %>
+      <%= submit_tag "Search", :class => "btn btn-warning" %>
+    <% end %>
     </div>
-	<div id="shop_main" class="row">
-		<table class="table">
-			<% @events.each do |e| %>
-				<tr>
-					<td>
-						<%= link_to e.name, event_path(e), :class => "btn btn-default" %>
-					</td>
-					<td>
-						<%= e.user.try(:short_name) %>
-					</td>
-					<td>						
-						<%= link_to 'Edit', edit_event_path(e), :class => "btn btn-success", :type => 'edit' %>
-						<%= link_to 'Delete', event_path(e), :method => :delete, :class => "btn btn-danger" %>
-					</td>
-					<td>
-						<% Time.zone = "Taipei" %>
-						<%= e.updated_at %>
-					</td>		
-				</tr>
-			<% end %>
-		</table>
-		<%= link_to 'New Event', new_event_path, :class => "btn btn-primary" %>
-		<%= paginate @events %>
+  <div id="shop_main" class="row">
+    <table class="table">
+      <% @events.each do |e| %>
+        <tr>
+          <td>
+            <%= link_to e.name, event_path(e), :class => "btn btn-default" %>
+          </td>
+          <td>
+            <%= e.user.try(:short_name) %>
+          </td>
+          <td>            
+            <%= link_to 'Edit', edit_event_path(e), :class => "btn btn-success", :type => 'edit' %>
+            <%= link_to 'Delete', event_path(e), :method => :delete, :class => "btn btn-danger" %>
+          </td>
+          <td>
+            <% Time.zone = "Taipei" %>
+            <%= e.updated_at %>
+          </td>   
+        </tr>
+      <% end %>
+    </table>
+    <%= link_to 'New Event', new_event_path, :class => "btn btn-primary" %>
+    <%= paginate @events %>
     </div>
 </div>
 <% else %>
-	<div class="container">
-    	<div id="shop_head">
-			<h1>Welcome LaLa Web~</h1>
-			<h1>Please login first!!!</h1>
-		</div>
-		<div id="shop_main" class="row">
-		</div>		
+  <div class="container">
+      <div id="shop_head">
+      <h1>Welcome LaLa Web~</h1>
+      <h1>Please login first!!!</h1>
+    </div>
+    <div id="shop_main" class="row">
+    </div>   
 <% end %>
 
 <div id="shop_foot" >
-	<div>地址：XX市XX區XX路XX巷XX號</div>
-	<div>電話：(06)2345678</div>
-	<div>版權所有 copyright © 2016 tad0616.net. All Rights Reserved. </div>
+  <div>地址：XX市XX區XX路XX巷XX號</div>
+  <div>電話：(06)2345678</div>
+  <div>版權所有 copyright © 2016 tad0616.net. All Rights Reserved. </div>
 </div>
