@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   		resources :messages, :controller => "event_messages"
   	end
 
+  	resources :users
+
   	root to: "events#index"
 
 end

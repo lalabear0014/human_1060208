@@ -17,6 +17,7 @@
 		<p>QQ/WeChat: <%= @event.contact %></p>
 		<p>Address: <%= @event.address %></p>
 		<p>Description: <%= simple_format @event.description %></p>
+		<p>Upload: <%= image_tag @event.avatar.url(:medium) %></p>
 		<h4>Messages: </h4>
 		<table class="table">
 			<% @event.messages.each do |e| %>
