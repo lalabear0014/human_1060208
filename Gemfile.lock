@@ -119,6 +119,10 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (~> 0.3.0)
+    pdf-core (0.7.0)
+    prawn (2.2.0)
+      pdf-core (~> 0.7.0)
+      ttfunk (~> 1.5)
     puma (3.7.0)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
@@ -177,6 +181,7 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.5)
     tilt (2.0.6)
+    ttfunk (1.5.0)
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.0)
@@ -210,6 +215,7 @@ DEPENDENCIES
   listen (~> 3.0.5)
   momentjs-rails (>= 2.9.0)
   paperclip (~> 5.0.0)
+  prawn
   puma (~> 3.0)
   pundit
   rails (~> 5.0.1)
