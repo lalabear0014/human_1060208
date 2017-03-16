@@ -43,6 +43,7 @@
 		<p>
 			<%= link_to "New message", new_event_message_path(@event), :class => "btn btn-info" %>
 			<%= link_to 'Back to index', events_path, :class => "btn btn-info" %>
+			<%= link_to "Printable Receipt (PDF)", event_path(@event, format: "pdf"), :class => "btn btn-info" %>
 		</p>
 	</div>
 

@@ -34,7 +34,8 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 
 gem "paperclip", "~> 5.0.0"
 
-gem 'prawn'
+gem 'prawn', '~> 1.2.1'
+gem 'prawn-table', '~> 0.1.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
