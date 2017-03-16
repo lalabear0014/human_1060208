@@ -3,34 +3,45 @@
     <div id="shop_head">
       <h1>Events List</h1>
       <%= form_tag events_path, :method => :get do %>
-      <%= text_field_tag "keyword" %>
-      <%= submit_tag "Search", :class => "btn btn-warning" %>
-    <% end %>
+        <%= text_field_tag "keyword" %>
+        <%= submit_tag "Search", name: nil, :class => "btn btn-warning" %>
+      <% end %>
     </div>
   <div id="shop_main" class="row">
-    <table class="table">
-      <% @events.each do |e| %>
-        <tr>
-          <td>
-            <%= link_to e.name, event_path(e), :class => "btn btn-default" %>
-          </td>
-          <td>
-            <%= e.user.try(:short_name) %>
-          </td>
-          <td>            
-            <%= link_to 'Edit', edit_event_path(e), :class => "btn btn-success", :type => 'edit' %>
-            <%= link_to 'Delete', event_path(e), :method => :delete, :class => "btn btn-danger" %>
-          </td>
-          <td>
-            <% Time.zone = "Taipei" %>
-            <%= e.updated_at %>
-          </td>   
-        </tr>
-      <% end %>
-    </table>
-    <%= link_to 'New Event', new_event_path, :class => "btn btn-primary" %>
-    <%= paginate @events %>
+    <div class="col-md-2 col-sm-3">
+      <div class="panel panel-primary">
+        <div class="panel-heading"></div>
+        <div class="panel-body">
+          <%= link_to 'Home', events_path, :class => "btn btn-block btn-info" %>
+          <%= link_to 'New', new_event_path, :class => "btn btn-block btn-success" %>
+          <%= link_to 'Search', events_path, :class => "btn btn-block btn-warning" %>
+        </div>
+      </div>
     </div>
+    <div class="col-md-10 col-sm-9">
+      <table class="table">
+        <% @events.each do |e| %>
+          <tr>
+            <td>
+              <%= link_to e.name, event_path(e), :class => "btn btn-default" %>
+            </td>
+            <td>
+              <%= e.user.try(:short_name) %>
+            </td>
+            <td>            
+              <%= link_to 'Edit', edit_event_path(e), :class => "btn btn-success", :type => 'edit' %>
+              <%= link_to 'Delete', event_path(e), :method => :delete, :class => "btn btn-danger" %>
+            </td>
+            <td>
+              <% Time.zone = "Taipei" %>
+              <%= e.updated_at %>
+            </td>   
+          </tr>
+        <% end %>
+      </table>   
+      <%= paginate @events %>
+    </div>
+  </div>
 </div>
 <% else %>
   <div class="container">
@@ -42,7 +53,7 @@
     </div>   
 <% end %>
 
-<div id="shop_foot" >
+<div id="shop_foot">
   <div>地址：XX市XX區XX路XX巷XX號</div>
   <div>電話：(06)2345678</div>
   <div>版權所有 copyright © 2016 tad0616.net. All Rights Reserved. </div>

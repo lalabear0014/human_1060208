@@ -3,59 +3,119 @@
 		
 	</div>
 	<div id="shop_main" class="row">
-		<h2><%= @event.name %></h2>
-		<p><b>IDnumber: </b><%= @event.idnumber %></p>
-		<p><b>Station: </b><%= @event.station %></p>
-		<p><b>Birthday: </b><%= @event.birthday %></p>
-		<p>
-			<% if @event.sex == true %>
-				He is a boy.
-			<% else %>
-				She is a girl.
-			<% end %>
-		</p>
-		<p><b>Education: </b><%= @event.education %></p>
-		<p><b>Experience: </b><%= @event.experience %></p>
-		
-		<b>Contact: </b>
-		<p>Phone: <%= @event.phone %></p>
-		<p>QQ/WeChat: <%= @event.contact %></p>
-		<p>Email: <%= @event.email %></p>
-		<p>Address: <%= @event.address %></p>
-
-		<p><b>Process: </b><%= simple_format @event.process %></p>
-		<p><b>Assess: </b><%= simple_format @event.assess %></p>
-		<p><b>Use: </b><%= simple_format @event.use %></p>
-		<p><b>Effect: </b><%= simple_format @event.effect %></p>
-
-		<p><b>Upload: </b><%= image_tag @event.avatar.url(:medium) %></p>
-		<b>Messages: </b>
-		<table class="table">
-			<% @event.messages.each do |e| %>
+		<div class="col-md-2 col-sm-3">
+	      <div class="panel panel-primary">
+	        <div class="panel-heading"></div>
+	        <div class="panel-body">
+	          <%= link_to 'Home', events_path, :class => "btn btn-block btn-info" %>
+	          <%= link_to 'New', new_event_path, :class => "btn btn-block btn-success" %>
+	          <%= link_to 'Search', events_path, :class => "btn btn-block btn-warning" %>
+	        </div>
+	      </div>
+	    </div>
+	    <div class="col-md-10 col-sm-9">
+			<h1><b><%= @event.name %></b>
+			<%= link_to 'Edit', edit_event_path(@event), :class => "btn btn-success", :type => 'edit' %></h1>
+			<table class="table">
 				<tr>
-					<td>
-						<%= e.content %>
-					</td>
-					<td>
-						<%= e.user.try(:short_name) %>
-					</td>
-					<td>				
-						<%= link_to 'Edit', edit_event_message_path(@event, e), :class => "btn btn-primary" %>
-						<%= link_to 'Delete', event_message_path(@event, e), :method => :delete, :data => { :confirm => "Are you sure?" }, :class => "btn btn-danger" %>
-					</td>
-					<td>
-						<% Time.zone = "Taipei" %>
-						<%= e.updated_at %>
-					</td>			
+					<td><b>IDnumber: </b></td>
+					<td><%= @event.idnumber %></td>
 				</tr>
-			<% end %>
-		</table>
-
-		<p>
-			<%= link_to "New message", new_event_message_path(@event), :class => "btn btn-info" %>
-			<%= link_to 'Back to index', events_path, :class => "btn btn-info" %>
-			<%= link_to "Printable Receipt (PDF)", event_path(@event, format: "pdf"), :class => "btn btn-info" %>
-		</p>
+				<tr>
+					<td><b>Station: </b></td>
+					<td><%= @event.station %></td>
+				</tr>
+				<tr>
+					<td><b>Birthday: </b></td>
+					<td><%= @event.birthday %></td>
+				</tr>
+				<tr>
+					<td><b>Sex: </b></td>
+					<% if @event.sex == true %>	
+						<td>Boy</td>
+					<% else %>
+						<td>Girl</td>
+					<% end %>			
+				</tr>
+				<tr>
+					<td><b>Education: </b></td>
+					<td><%= @event.education %></td>
+				</tr>
+				<tr>
+					<td><b>Experience: </b></td>
+					<td><%= @event.experience %></td>
+				</tr>
+				<tr>
+					<td><b>Contact: </b></td>
+					<tr>
+						<td></td>
+						<td>Phone: </td>
+						<td><%= @event.phone %></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>QQ/WeChat: </td>
+						<td><%= @event.contact %></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>Email: </td>
+						<td><%= @event.email %></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>Address: </td>
+						<td><%= @event.address %></td>
+					</tr>
+				</tr>
+				<tr>
+					<td><b>Process: </b></td>
+					<td><%= simple_format @event.process %></td>
+				</tr>
+				<tr>
+					<td><b>Assess: </b></td>
+					<td><%= simple_format @event.assess %></td>
+				</tr>
+				<tr>
+					<td><b>Use: </b></td>
+					<td><%= simple_format @event.use %></td>
+				</tr>
+				<tr>
+					<td><b>Effect: </b></td>
+					<td><%= simple_format @event.effect %></td>
+				</tr>
+				<tr>
+					<td><b>Upload: </b></td>
+					<td><%= image_tag @event.avatar.url(:medium) %></td>
+				</tr>
+			</table>
+			
+			<b>Messages: </b>
+			<table class="table">
+				<% @event.messages.each do |e| %>
+					<tr>
+						<td>
+							<%= e.content %>
+						</td>
+						<td>
+							<%= e.user.try(:short_name) %>
+						</td>
+						<td>				
+							<%= link_to 'Edit', edit_event_message_path(@event, e), :class => "btn btn-primary" %>
+							<%= link_to 'Delete', event_message_path(@event, e), :method => :delete, :data => { :confirm => "Are you sure?" }, :class => "btn btn-danger" %>
+						</td>
+						<td>
+							<% Time.zone = "Taipei" %>
+							<%= e.updated_at %>
+						</td>			
+					</tr>
+				<% end %>
+			</table>
+			<p>
+				<%= link_to "New message", new_event_message_path(@event), :class => "btn btn-info" %>
+				<%= link_to "Printable Receipt (PDF)", event_path(@event, format: "pdf"), :class => "btn btn-info" %>
+			</p>			
+		</div>	
 	</div>
 
 	<div id="shop_foot" >
