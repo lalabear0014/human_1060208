@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170314014143) do
+ActiveRecord::Schema.define(version: 20170316005212) do
 
   create_table "events", force: :cascade do |t|
     t.string   "name"
@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(version: 20170314014143) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "idnumber"
+    t.string   "station"
+    t.string   "education"
+    t.string   "experience"
+    t.string   "process"
+    t.string   "assess"
+    t.string   "use"
+    t.string   "effect"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 

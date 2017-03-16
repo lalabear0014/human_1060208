@@ -4,6 +4,9 @@
 	</div>
 	<div id="shop_main" class="row">
 		<h2><%= @event.name %></h2>
+		<p><b>IDnumber: </b><%= @event.idnumber %></p>
+		<p><b>Station: </b><%= @event.station %></p>
+		<p><b>Birthday: </b><%= @event.birthday %></p>
 		<p>
 			<% if @event.sex == true %>
 				He is a boy.
@@ -11,14 +14,22 @@
 				She is a girl.
 			<% end %>
 		</p>
-		<p>Birthday: <%= @event.birthday %></p>
-		<p>Email: <%= @event.email %></p>
+		<p><b>Education: </b><%= @event.education %></p>
+		<p><b>Experience: </b><%= @event.experience %></p>
+		
+		<b>Contact: </b>
 		<p>Phone: <%= @event.phone %></p>
 		<p>QQ/WeChat: <%= @event.contact %></p>
+		<p>Email: <%= @event.email %></p>
 		<p>Address: <%= @event.address %></p>
-		<p>Description: <%= simple_format @event.description %></p>
-		<p>Upload: <%= image_tag @event.avatar.url(:medium) %></p>
-		<h4>Messages: </h4>
+
+		<p><b>Process: </b><%= simple_format @event.process %></p>
+		<p><b>Assess: </b><%= simple_format @event.assess %></p>
+		<p><b>Use: </b><%= simple_format @event.use %></p>
+		<p><b>Effect: </b><%= simple_format @event.effect %></p>
+
+		<p><b>Upload: </b><%= image_tag @event.avatar.url(:medium) %></p>
+		<b>Messages: </b>
 		<table class="table">
 			<% @event.messages.each do |e| %>
 				<tr>
