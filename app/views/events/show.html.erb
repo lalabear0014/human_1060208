@@ -102,7 +102,9 @@
 						</td>
 						<td>				
 							<%= link_to 'Edit', edit_event_message_path(@event, e), :class => "btn btn-primary" %>
-							<%= link_to 'Delete', event_message_path(@event, e), :method => :delete, :data => { :confirm => "Are you sure?" }, :class => "btn btn-danger" %>
+							<%= link_to 'Delete', event_message_path(@event, e), :method => :delete, :class => "btn btn-danger" %>
+							<!-- 確認視窗 -->
+							<!-- :data => { :confirm => "Are you sure?" } -->
 						</td>
 						<td>
 							<% Time.zone = "Taipei" %>

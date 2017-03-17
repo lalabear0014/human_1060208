@@ -1,7 +1,7 @@
 class Event < ApplicationRecord
 
-	validates_presence_of :name
-
+	validates_presence_of :name, :station
+	
 	belongs_to :user
 	has_many :messages
 
