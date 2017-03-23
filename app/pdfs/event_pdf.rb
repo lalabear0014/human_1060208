@@ -1,9 +1,9 @@
 class EventPdf < Prawn::Document
 
 	def initialize(event)
-		super(top_margin: 70)
+		super(top_margin: 25)
 		@event = Event.all
-		# title
+
 		# line_items
 
 		# 將.ttf 檔放在/usr/local/lib/ruby/gems/2.4.0/gems/prawn-1.2.1/data/fonts裡面
@@ -13,32 +13,44 @@ class EventPdf < Prawn::Document
 		font_families["Kai"] = {
 		 :normal => { :file => file, :font => "Kai" }
 		}
+		font "Kai"
 
+		# line
+		stroke do
+			self.line_width = 10
+			line [250, 1000], [-50, 700]
+		 	line [280, 1000], [-50, 670]
+		end
+
+		Time.zone = "Taipei"
+		text "製表日期：#{event.updated_at.strftime("%Y/%m/%d")}", size: 12, align: :right
+
+		title
 		data0 = [ ["人資表"] ]
-		table(data0, :column_widths => [540], :cell_style => { :font => 'Kai', :height => 50, :size => 30 })
-		
-		data1 = [ ["姓名", "#{event.name}", "證號", "#{event.idnumber}"] ]
-		table(data1, :column_widths => [90, 180, 90, 180], :cell_style => { :font => 'Kai', :height => 40 })
+		table(data0, :column_widths => [540], :cell_style => { :height => 40, :size => 20 })
+
+		data1 = [ ["姓名", "#{event.name}", "證號", "#{event.idnumber}", "資審", "是"] ]
+		table(data1, :column_widths => [90, 140, 65, 130, 65, 50], :cell_style => { :height => 40, :size => 14 })
 
 		if event.sex == true
 			sex = "男"
 		else
 			sex = "女"
 		end
-		data2 = [ ["駐地", "#{event.station}", "生日", "#{event.birthday}", "性別", "#{sex}"] ]
-		table(data2, :column_widths => [90, 135, 45, 90, 45, 135], :cell_style => { :font => 'Kai', :height => 40 })
+		data2 = [ ["駐地", "#{event.station}", "生日", "#{event.birthday.strftime("%Y/%m/%d")}", "性別", "#{sex}"] ]
+		table(data2, :column_widths => [90, 140, 65, 130, 65, 50], :cell_style => { :height => 40, :size => 14 })
 
 		data3 = [ ["學歷", "#{event.education}"] ]
-		table(data3, :column_widths => [90, 450], :cell_style => { :font => 'Kai', :height => 100 })
+		table(data3, :column_widths => [90, 450], :cell_style => { :height => 100, :size => 14 })
 
 		data4 = [ ["經歷", "#{event.experience}"] ]
-		table(data4, :column_widths => [90, 450], :cell_style => { :font => 'Kai', :height => 150 })
+		table(data4, :column_widths => [90, 450], :cell_style => { :height => 150, :size => 14 })
 
-		data5 = [ ["聯繫方式", "電話", "#{event.phone}", "微信", "#{event.contact}"] ]
-		table(data5, :column_widths => [90, 45, 180, 45, 180], :cell_style => { :font => 'Kai', :height => 40 })
+		data5 = [ ["聯繫方式", "電話", "#{event.phone}", "即時通訊", "#{event.contact}"] ]
+		table(data5, :column_widths => [90, 45, 120, 85, 200], :cell_style => { :height => 35, :size => 14 })
 
 		data6 = [ ["", "電郵", "#{event.email}", "地址", "#{event.address}"] ]
-		table(data6, :column_widths => [90, 45, 180, 45, 180], :cell_style => { :font => 'Kai', :height => 40 })
+		table(data6, :column_widths => [90, 45, 120, 85, 200], :cell_style => { :height => 35, :size => 14 })
 
 		# my_table1 = make_table([ ["Phone"], ["Email"] ])
 		# my_table2 = make_table([ ["#{event.phone}"], ["#{event.email}"] ])
@@ -46,24 +58,48 @@ class EventPdf < Prawn::Document
 		# my_table4 = make_table([ ["#{event.contact}"], ["#{event.address}"] ])
 		# table([ ["Contact", my_table1, my_table2, my_table3, my_table4] ], :column_widths => [90, 45, 180, 45, 180])
 
-		data7 = [ ["接觸", "#{event.process}"] ]
-		table(data7, :column_widths => [90, 450], :cell_style => { :font => 'Kai', :height => 200 })
+		data7 = [ ["接觸經過", "#{event.process}"] ]
+		table(data7, :column_widths => [90, 450], :cell_style => { :height => 242, :size => 14 })
 
-		data8 = [ ["考核", "#{event.assess}"] ]
-		table(data8, :column_widths => [90, 450], :cell_style => { :font => 'Kai', :height => 220 })
+		page
 
-		data9 = [ ["運用", "#{event.use}" ] ]
-		table(data9, :column_widths => [90, 450], :cell_style => { :font => 'Kai', :height => 220 })
+		title
 
-		data10 = [ ["工作成效", "#{event.effect}"] ]
-		table(data10, :column_widths => [90, 450], :cell_style => { :font => 'Kai', :height => 220 })
+		data8 = [ ["考核策進", "#{event.assess}"] ]
+		table(data8, :column_widths => [90, 450], :cell_style => { :height => 248, :size => 14 })
+
+		data9 = [ ["運用規劃", "#{event.use}" ] ]
+		table(data9, :column_widths => [90, 450], :cell_style => { :height => 248, :size => 14 })
+
+		data10 = [ ["匯補紀錄", "YOYOYO"] ]
+		table(data10, :column_widths => [90, 450], :cell_style => { :height => 200, :size => 14 })
+
+		page
+
+		title
+
+		data11 = [ ["工作成效", "#{event.effect}"] ]
+		table(data11, :column_widths => [90, 450], :cell_style => { :height => 300, :size => 14 })
 
 		# table(data9, :cell_style => { :font => 'Kai', :size => 15, :inline_format => true }, :column_widths => [90, 450])
 
 	end
 
 	def title
-		text "Human List", size: 30, style: :bold
+		move_down 15
+		text "嘰嘰喳喳(好久好久以後才可以看)", size: 12
+	end
+
+	def page
+		start_new_page		# 下一頁
+		
+		string = "第<page>頁，共3頁"
+	    options = {
+		    :at => [bounds.left + 0, 0],	# 從左邊算起[0,0]的位置
+		    :align => :center,				# 置中
+		    :start_count_at => 1			# 頁碼從1開始
+		}
+	    number_pages string, options
 	end
 
 	def line_items
