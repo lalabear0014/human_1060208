@@ -38,7 +38,13 @@ class EventPdf < Prawn::Document
 		data0 = [ ["人資表"] ]
 		table(data0, :column_widths => [540], :cell_style => { :size => 20 })
 
-		data1 = [ ["姓名", "#{event.name}", "證號", "#{event.idnumber}", "資審", "是"] ]
+		if event.data_validation == true
+			data_validation = "是"
+		else
+			data_validation = "否"
+		end
+
+		data1 = [ ["姓名", "#{event.name}", "證號", "#{event.idnumber}", "資審", "#{data_validation}"] ]
 		table(data1, :column_widths => [90, 140, 65, 130, 65, 50], :cell_style => { :size => 14 })
 
 		if event.sex == true
@@ -76,11 +82,15 @@ class EventPdf < Prawn::Document
 		data9 = [ ["運用規劃", "#{event.use}" ] ]
 		table(data9, :column_widths => [90, 450], :cell_style => { :size => 14 })
 
-		data10 = [ ["匯補紀錄", "YOYOYO"] ]
+		data10 = [ ["匯補紀錄", "#{event.money}"] ]
 		table(data10, :column_widths => [90, 450], :cell_style => { :size => 14 })
 
 		data11 = [ ["工作成效", "#{event.effect}"] ]
 		table(data11, :column_widths => [90, 450], :cell_style => { :size => 14 })
+	end
+
+	def title
+		text "嘰嘰喳喳(好久好久以後才可以看)", size: 12
 	end
 
 	def header_footer(event)
@@ -93,7 +103,7 @@ class EventPdf < Prawn::Document
 
 		repeat :all do
 		    # header
-		    bounding_box([bounds.left, bounds.top+5], :width => bounds.width) do
+		    bounding_box([bounds.left+10, bounds.top-9], :width => bounds.width) do
 		        cell :content => title,
 		             #:background_color => 'FFFFFF',
 		             :width => bounds.width,
@@ -109,6 +119,7 @@ class EventPdf < Prawn::Document
 
 	  	# footer
 		bounding_box([bounds.left, bounds.bottom-10], :width => bounds.width) do
+		    # start_new_page		# 下一頁
 		    string = "第<page>頁，共<total>頁"
 		    options = {
 			    :at => [bounds.left+0, 0],		# 從左邊算起[0,0]的位置
@@ -118,40 +129,6 @@ class EventPdf < Prawn::Document
 			    :size => 10
 			}
 		    number_pages string, options
-		end
-	end
-
-	def title
-		move_down 15
-		text "嘰嘰喳喳(好久好久以後才可以看)", size: 12
-	end
-
-	def page
-		start_new_page		# 下一頁
-		
-		string = "第<page>頁，共3頁"
-	    options = {
-		    :at => [bounds.left + 0, 0],	# 從左邊算起[0,0]的位置
-		    :align => :center,				# 置中
-		    :start_count_at => 1			# 頁碼從1開始
-		}
-	    number_pages string, options
-	end
-
-	def line_items
-		move_down 15
-		table line_item_rows do
-			row(0).font_style = :bold
-			column(1..3).align = :right
-			self.row_colors = ["DDDDDD", "FFFFFF"]
-			self.header = true
-		end
-	end
-
-	def line_item_rows
-		[["Name", "Birthday", "Email", "Phone", "QQ 0r WeChat", "Address"]] +
-		@event.map do |item|
-			[item.name, item.birthday, item.email, item.phone, item.contact, item.address]
 		end
 	end
 

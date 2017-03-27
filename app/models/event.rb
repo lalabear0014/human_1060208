@@ -1,6 +1,9 @@
 class Event < ApplicationRecord
 
-	validates_presence_of :name, :station
+	validates_presence_of :name, :idnumber, :data_validation, :station,
+							:birthday, :sex, :education, :experience,
+							:phone, :contact, :email, :address,
+							:process, :assess, :use, :money, :effect
 	
 	belongs_to :user
 	has_many :messages

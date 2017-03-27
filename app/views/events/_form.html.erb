@@ -7,22 +7,30 @@
 <% end %>
 
 <div class="form-group">
-	<%= f.label :name, "Name: " %>
+	<%= f.label :name, "姓名: " %>
 	<%= f.text_field :name, :class => "form-control" %>
 </div>
 
 <div class="form-group">
-	<%= f.label :idnumber, "IDnumber: " %>
+	<%= f.label :idnumber, "證號: " %>
 	<%= f.text_field :idnumber, :class => "form-control" %>
 </div>
 
 <div class="form-group">
-	<%= f.label :station, "Station: " %>
+	<%= f.label :data_validation, "資審: " %>
+	<%= f.radio_button :data_validation, true %>
+	<%= f.label :data_validation, "是", :value => "Yes" %>
+	<%= f.radio_button :data_validation, false %>
+	<%= f.label :data_validation, "否", :value => "No" %>
+</div>
+
+<div class="form-group">
+	<%= f.label :station, "駐地: " %>
 	<%= f.text_field :station, :class => "form-control" %>
 </div>
 
 <div class="form-group">
-	<%= f.label :birthday, "Birthday: " %>
+	<%= f.label :birthday, "生日: " %>
     <div class='input-group date' id='datetimepicker1'> 	
     	<%= f.text_field :birthday, :class => "form-control" %>
 
@@ -40,64 +48,69 @@
 </script>
 
 <div class="form-group">
-	<%= f.label :sex, "Sex: " %>
+	<%= f.label :sex, "性別: " %>
 	<%= f.radio_button :sex, true %>
-	<%= f.label :sex, "Boy", :value => "Boy" %>
+	<%= f.label :sex, "男", :value => "Boy" %>
 	<%= f.radio_button :sex, false %>
-	<%= f.label :sex, "Girl", :value => "Girl" %>
+	<%= f.label :sex, "女", :value => "Girl" %>
 </div>
 
 <div class="form-group">
-	<%= f.label :education, "Education: " %>
+	<%= f.label :education, "學歷: " %>
 	<%= f.text_area :education, :class => "form-control" %>
 </div>
 
 <div class="form-group">
-	<%= f.label :experience, "Experience: " %>
+	<%= f.label :experience, "經歷: " %>
 	<%= f.text_area :experience, :class => "form-control" %>
 </div>
 
 <div class="form-group">
-	<%= f.label :phone, "Phone: " %>
+	<%= f.label :phone, "電話: " %>
 	<%= f.text_field :phone, :class => "form-control" %>
 </div>
 
 <div class="form-group">
-	<%= f.label :contact, "QQ/WeChat: " %>
+	<%= f.label :contact, "即時通訊: " %>
 	<%= f.text_area :contact, :class => "form-control" %>
 </div>
 
 <div class="form-group">
-	<%= f.label :email, "Email: " %>
+	<%= f.label :email, "電郵: " %>
 	<%= f.text_field :email, :class => "form-control" %>
 </div>
 
 <div class="form-group">
-	<%= f.label :address, "Address: " %>
+	<%= f.label :address, "地址: " %>
 	<%= f.text_area :address, :class => "form-control" %>
 </div>
 
 <div class="form-group">
-	<%= f.label :process, "Process: " %>
+	<%= f.label :process, "接觸經過: " %>
 	<%= f.text_area :process, :class => "form-control" %>
 </div>
 
 <div class="form-group">
-	<%= f.label :assess, "Assess: " %>
+	<%= f.label :assess, "考核策進: " %>
 	<%= f.text_area :assess, :class => "form-control" %>
 </div>
 
 <div class="form-group">
-	<%= f.label :use, "Use: " %>
+	<%= f.label :use, "運用規劃: " %>
 	<%= f.text_area :use, :class => "form-control" %>
 </div>
 
 <div class="form-group">
-	<%= f.label :effect, "Effect: " %>
+	<%= f.label :money, "匯補紀錄: " %>
+	<%= f.text_area :money, :class => "form-control" %>
+</div>
+
+<div class="form-group">
+	<%= f.label :effect, "工作成效: " %>
 	<%= f.text_area :effect, :class => "form-control" %>
 </div>
 
 <div class="form-group">
-	<%= f.label :avatar, "Upload: " %>
+	<%= f.label :avatar, "檔案上傳: " %>
 	<%= f.file_field :avatar %>
 </div>

@@ -77,11 +77,10 @@ class EventsController < ApplicationController
 	end
 
 	def event_params
-		params.require(:event).permit(:name, :idnumber, :station,
-									  :birthday, :sex, :education,
-									  :experience, :phone, :contact,
-									  :email, :address, :process,
-									  :assess, :use, :effect,
+		params.require(:event).permit(:name, :idnumber, :data_validation, :station,
+									  :birthday, :sex, :education, :experience,
+									  :phone, :contact, :email, :address,
+									  :process, :assess, :use, :money, :effect,
 									  :description, :avatar)
 	end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170316005212) do
+ActiveRecord::Schema.define(version: 20170327023128) do
 
   create_table "events", force: :cascade do |t|
     t.string   "name"
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 20170316005212) do
     t.string   "assess"
     t.string   "use"
     t.string   "effect"
+    t.string   "money"
+    t.boolean  "data_validation"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
