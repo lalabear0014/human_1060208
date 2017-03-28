@@ -1,127 +1,101 @@
 <div class="container">
-    <div id="shop_head">
+    <div id="main" class="row">
+		<h1><b><%= @event.name %></b>
+		<%= link_to '編輯', edit_event_path(@event), :class => "btn btn-success", :type => 'edit' %></h1>
 		
-	</div>
-	<div id="shop_main" class="row">
-		<div class="col-md-2 col-sm-3">
-	      <div class="panel panel-primary">
-	        <div class="panel-heading"></div>
-	        <div class="panel-body">
-	          <%= link_to 'Home', events_path, :class => "btn btn-block btn-info" %>
-	          <%= link_to 'New', new_event_path, :class => "btn btn-block btn-success" %>
-	          <%= link_to 'Search', events_path, :class => "btn btn-block btn-warning" %>
-	        </div>
-	      </div>
-	    </div>
-	    <div class="col-md-10 col-sm-9">
-			<h1><b><%= @event.name %></b>
-			<%= link_to 'Edit', edit_event_path(@event), :class => "btn btn-success", :type => 'edit' %></h1>
-			<table class="table">
-				<tr>
-					<td><b>IDnumber: </b></td>
-					<td><%= @event.idnumber %></td>
-				</tr>
-				<tr>
-					<td><b>Station: </b></td>
-					<td><%= @event.station %></td>
-				</tr>
-				<tr>
-					<td><b>Birthday: </b></td>
-					<td><%= @event.birthday %></td>
-				</tr>
-				<tr>
-					<td><b>Sex: </b></td>
-					<% if @event.sex == true %>	
-						<td>Boy</td>
-					<% else %>
-						<td>Girl</td>
-					<% end %>			
-				</tr>
-				<tr>
-					<td><b>Education: </b></td>
-					<td><%= @event.education %></td>
-				</tr>
-				<tr>
-					<td><b>Experience: </b></td>
-					<td><%= @event.experience %></td>
-				</tr>
-				<tr>
-					<td><b>Contact: </b></td>
-					<tr>
-						<td></td>
-						<td>Phone: </td>
-						<td><%= @event.phone %></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>QQ/WeChat: </td>
-						<td><%= @event.contact %></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>Email: </td>
-						<td><%= @event.email %></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>Address: </td>
-						<td><%= @event.address %></td>
-					</tr>
-				</tr>
-				<tr>
-					<td><b>Process: </b></td>
-					<td><%= simple_format @event.process %></td>
-				</tr>
-				<tr>
-					<td><b>Assess: </b></td>
-					<td><%= simple_format @event.assess %></td>
-				</tr>
-				<tr>
-					<td><b>Use: </b></td>
-					<td><%= simple_format @event.use %></td>
-				</tr>
-				<tr>
-					<td><b>Effect: </b></td>
-					<td><%= simple_format @event.effect %></td>
-				</tr>
-				<tr>
-					<td><b>Upload: </b></td>
-					<td><%= image_tag @event.avatar.url(:medium) %></td>
-				</tr>
-			</table>
-			
-			<b>Messages: </b>
-			<table class="table">
-				<% @event.messages.each do |e| %>
-					<tr>
-						<td>
-							<%= e.content %>
-						</td>
-						<td>
-							<%= e.user.try(:short_name) %>
-						</td>
-						<td>				
-							<%= link_to 'Edit', edit_event_message_path(@event, e), :class => "btn btn-primary" %>
-							<%= link_to 'Delete', event_message_path(@event, e), :method => :delete, :class => "btn btn-danger" %>
-							<!-- 確認視窗 -->
-							<!-- :data => { :confirm => "Are you sure?" } -->
-						</td>
-						<td>
-							<% Time.zone = "Taipei" %>
-							<%= e.updated_at %>
-						</td>			
-					</tr>
-				<% end %>
-			</table>
-			<p>
-				<%= link_to "New message", new_event_message_path(@event), :class => "btn btn-info" %>
-				<%= link_to "Printable Receipt (PDF)", event_path(@event, format: "pdf"), :class => "btn btn-info" %>
-			</p>			
-		</div>	
-	</div>
+		<b>基本資料：</b>
+		<dl class="dl-horizontal">
+			<dt>證號：</dt>
+			<dd><%= @event.idnumber %></dd>
 
-	<div id="shop_foot" >
-    	<div>地址：XX市XX區XX路XX巷XX號</div>
-    	<div>電話：(06)2345678</div>
-    	<div>版權所有 copyright © 2016 tad0616.net. All Rights Reserved. </div>
-    </div>
+			<dt>資審：</dt>
+			<% if @event.data_validation == true %>	
+				<dd>是</dd>
+			<% else %>
+				<dd>否</dd>
+			<% end %>
+
+			<dt>駐地：</dt>
+			<dd><%= @event.station %></dd>
+
+			<dt>生日：</dt>
+			<dd><%= @event.birthday.strftime("%Y/%m/%d") %></dd>
+			
+			<dt>性別：</dt>
+			<% if @event.sex == true %>	
+				<dd>男</dd>
+			<% else %>
+				<dd>女</dd>
+			<% end %>
+				
+			<dt>學歷：</dt>
+			<dd><%= @event.education %></dd>
+
+			<dt>經歷：</dt>
+			<dd><%= @event.experience %></dd>
+		</dl>
+
+		<b>聯繫方式：</b>
+		<dl class="dl-horizontal">
+			<dt>電話：</dt>
+			<dd><%= @event.phone %></dd>
+			<dt>即時通訊：</dt>
+			<dd><%= @event.contact %></dd>
+			<dt>電郵：</dt>
+			<dd><%= @event.email %></dd>
+			<dt>地址：</dt>
+			<dd><%= @event.address %></dd>
+		</dl>
+
+		<table class="table">	
+			<tr>
+				<td><b>接觸經過</b></td>
+				<td><%= simple_format @event.process %></td>
+			</tr>
+			<tr>
+				<td><b>考核策進</b></td>
+				<td><%= simple_format @event.assess %></td>
+			</tr>
+			<tr>
+				<td><b>運用規劃</b></td>
+				<td><%= simple_format @event.use %></td>
+			</tr>
+			<tr>
+				<td><b>匯補紀錄</b></td>
+				<td><%= simple_format @event.money %></td>
+			</tr>
+			<tr>
+				<td><b>工作成效</b></td>
+				<td><%= simple_format @event.effect %></td>
+			</tr>
+			<tr>
+				<td><b>檔案上傳</b></td>
+				<td><%= image_tag @event.avatar.url(:medium) %></td>
+			</tr>
+		</table>
+
+		<b><em>留言訊息：</em></b>	
+		<table class="table">
+			<% @event.messages.each do |e| %>
+				<tr>
+					<td>
+						<%= e.content %>
+					</td>
+					<td>
+						<%= e.user.try(:short_name) %>
+					</td>
+					<td>				
+						<%= link_to '編輯', edit_event_message_path(@event, e), :class => "btn btn-primary" %>
+						<%= link_to '刪除', event_message_path(@event, e), :method => :delete, :class => "btn btn-danger" %>
+						<!-- 確認視窗 -->
+						<!-- :data => { :confirm => "Are you sure?" } -->
+					</td>
+					<td>
+						<% Time.zone = "Taipei" %>
+						<%= e.updated_at.strftime("%Y/%m/%d %T") %>
+					</td>			
+				</tr>
+			<% end %>
+		</table>
+	</div>
+</div>

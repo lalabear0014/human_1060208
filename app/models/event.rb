@@ -10,7 +10,7 @@ class Event < ApplicationRecord
 
 	has_attached_file :avatar,
 		styles: { large: "600x600>", medium: "300x300>", thumb: "150x150#" },
-		:default_url => "egg.png"
+		:default_url => "no_image"
   	validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
 
 end

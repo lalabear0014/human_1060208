@@ -1,8 +1,9 @@
-<%= form_for @event, html: { multipart: true }, :url => events_path do |f| %>
+	<%= form_for @event, html: { multipart: true }, :url => events_path do |f| %>
 
-    <%= render :partial => "form", :locals => { :f => f } %>
+	    <%= render :partial => "form", :locals => { :f => f } %>
 
-    <%= f.submit "Create", :class => "btn btn-primary" %>
-    <%= link_to 'Cancel', events_path, :class => "btn btn-primary" %>
-    
-<% end %>
+	    <%= f.submit "建立", :class => "btn btn-primary" %>
+	    <%= link_to '返回', events_path, :class => "btn btn-primary" %>
+	    
+	<% end %>
+</div>

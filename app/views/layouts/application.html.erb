@@ -9,40 +9,118 @@
   </head>
 
   <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-
-          <% if flash[:notice].present? %>
-            <div class="alert alert-success" role="alert">
-              <%= flash[:notice] %>
-            </div>
-          <% end %>
-          
-          <% if flash[:alert].present? %>
-            <div class="alert alert-danger" role="alert">
-              <%= flash[:alert] %>
-            </div>
-          <% end %>
-
-          <% if current_user %>
-            Hi, <%= current_user.email %>
-
-            <%= link_to('登出', destroy_user_session_path, :method => :delete) %> |
-            <%= link_to('修改密碼', edit_registration_path(:user)) %>
-          <% else %>
-            <%= link_to('註冊', new_registration_path(:user)) %> |
-            <%= link_to('登入', new_session_path(:user)) %>
-          <% end %>
-
-          <% if current_user && current_user.admin? %>
-            <%= link_to "admin", admin_events_path %>
-          <% end %>         
-          
-          <%= yield %>
-
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <%= link_to('Home', events_path, :class => "navbar-brand") %>
         </div>
-      </div>
-    </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active">
+              <% if user_signed_in? %>
+                <li>
+                  <%= link_to('登出', destroy_user_session_path, :method => :delete) %>
+                </li>
+                <li>
+                  <%= link_to('修改密碼', edit_registration_path(:user)) %>
+                </li>
+              <% else %>
+                <li>
+                  <%= link_to('登入', new_session_path(:user)) %>
+                </li>
+                <li>
+                  <%= link_to('註冊', new_registration_path(:user)) %>
+                </li>
+              <% end %>
+              <li>
+                <%= link_to '新增人員', new_event_path %>
+              </li>
+            </li>
+          </ul>
+
+          <!-- Search -->
+          <form class="navbar-form navbar-left">
+            <div class="form-group"> 
+              <%= form_tag events_path, :method => :get do %>
+                <%= text_field_tag "keyword" %>
+                <%= submit_tag "Search", name: nil, :class => "form-control", :placeholder => "Search" %>
+              <% end %>
+            </div>
+          </form>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <!-- 確認@event存在且已存在資料庫 -->
+              <% if @event && @event.save %>
+                <%= link_to "檔案列印(PDF)", event_path(@event, format: "pdf") %>
+              <% end %>        
+            </li>
+            <li>
+              <% if @event && @event.save %>
+                <% if current_user.admin? || current_user.boss? %>
+                  <li>
+                    <%= link_to('指導', new_event_message_path(@event)) %>
+                  </li>
+                <% else %>
+                  <li>
+                    <%= link_to('處理', new_event_message_path(@event)) %>
+                  </li>
+                <% end %>
+              <% end %>
+            </li>
+            <li class="dropdown">
+              <!-- data-toggle視窗切換 -->
+              <!-- aria-haspopup觸控暫留 -->
+              <!-- aria-expanded展開狀態 -->
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">小朋友
+                <!-- caret內均可再點入查詢 -->
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="#">大毛</a>
+                </li>
+                <li>
+                  <a href="#">二毛</a>
+                </li>
+                <li>
+                  <a href="#">三毛</a>
+                </li>
+                <li>
+                  <a href="#">小毛</a>
+                </li>
+                <li role="separator" class="divider"> 
+                </li>
+                <li>
+                  <a href="#">Separated link</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+
+      <% if flash[:notice].present? %>
+        <div class="alert alert-success" role="alert">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+            
+      <% if flash[:alert].present? %>
+        <div class="alert alert-danger" role="alert">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </nav>
+
+    <!--<% if current_user && current_user.admin? %>
+      <%= link_to "admin", admin_events_path %>
+    <% end %>-->
+
   </body>
 </html>

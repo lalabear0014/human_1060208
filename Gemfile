@@ -37,6 +37,8 @@ gem "paperclip", "~> 5.0.0"
 gem 'prawn', '~> 1.2.1'
 gem 'prawn-table', '~> 0.1.0'
 
+gem 'simple_form'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
