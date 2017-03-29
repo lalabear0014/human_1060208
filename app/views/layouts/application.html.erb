@@ -49,17 +49,17 @@
                 <%= submit_tag "Search", name: nil, :class => "form-control", :placeholder => "Search" %>
               <% end %>
             </div>
-          </form>
+          </form> 
 
           <ul class="nav navbar-nav navbar-right">
             <li>
               <!-- 確認@event存在且已存在資料庫 -->
-              <% if @event && @event.save %>
+              <% if @events.to_a[0] == nil && @event.id != nil %>
                 <%= link_to "檔案列印(PDF)", event_path(@event, format: "pdf") %>
               <% end %>        
             </li>
             <li>
-              <% if @event && @event.save %>
+              <% if @events.to_a[0] == nil && @event.id != nil %>
                 <% if current_user.admin? || current_user.boss? %>
                   <li>
                     <%= link_to('指導', new_event_message_path(@event)) %>
