@@ -93,13 +93,27 @@ class EventsController < ApplicationController
 					k = "%#{params[:keyword]}%"
 					@events = @events.where( "name like ? or station like ?", k, k )	
 				end
+				if params[:staffname]
+					@staffs = User.all
+					s = "%#{params[:staffname]}%"
+					@staffs = @staffs.where( "email like ?", s )
+					@events = @staffs.to_a[0].events
+				end
 			elsif current_user.boss?	# 如果current_user是boss
 				# 抓boss及staff的events
 				@events = Event.joins(:user).merge( User.where(role: ['boss','staff']) )
 				# @events = Event.joins(:user).merge( User.where("role=? OR role=?","boss","staff") )
+				# 判斷Search
 				if params[:keyword]
 					k = "%#{params[:keyword]}%"
 					@events = @events.where( [ "name like ? or station like ?", k, k ] )
+				end
+				# 判斷人員的events
+				if params[:staffname]
+					@staffs = User.where( role: ['boss','staff'] )
+					s = "%#{params[:staffname]}%"
+					@staffs = @staffs.where( "email like ?", s )
+					@events = @staffs.to_a[0].events
 				end
 			else
 				user = current_user
@@ -109,7 +123,7 @@ class EventsController < ApplicationController
 					@events = @events.where( "name like ? or station like ?", k, k )
 				end
 			end
-			@events = @events.page( params[:page] ).per(5)
+			@events = @events.page( params[:page] ).per(8)
 		end
 		
 	end

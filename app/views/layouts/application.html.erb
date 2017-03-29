@@ -79,25 +79,39 @@
                 <!-- caret內均可再點入查詢 -->
                 <span class="caret"></span>
               </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a href="#">大毛</a>
-                </li>
-                <li>
-                  <a href="#">二毛</a>
-                </li>
-                <li>
-                  <a href="#">三毛</a>
-                </li>
-                <li>
-                  <a href="#">小毛</a>
-                </li>
-                <li role="separator" class="divider"> 
-                </li>
-                <li>
-                  <a href="#">Separated link</a>
-                </li>
-              </ul>
+
+              <!-- 下拉選單 -->
+              <% if current_user %>
+                <ul class="dropdown-menu">
+                  <!-- 判斷下拉選單的users -->
+                  <% if current_user.staff? %>
+                    <% @staffs = current_user.email %>
+                    <li>
+                      <% text_field_tag :staffname %>
+                      <a><%= link_to @staffs.to_s[0], events_path( staffname: @staffs ) %></a>
+                    </li>
+                  <% end %> 
+                  <% if current_user.admin? %>
+                    <% @staffs = User.where( role: ['boss','staff'] ) %>
+                    <% @staffs.each do |s| %>
+                      <% @staffs = s.email %>
+                      <li>
+                        <% text_field_tag :staffname %>
+                        <a><%= link_to @staffs.to_s[0], events_path( staffname: @staffs ) %></a>
+                      </li>
+                    <% end %>       
+                  <% elsif current_user.boss? %>
+                    <% @staffs = User.where( role: ['staff'] ) %>
+                      <% @staffs.each do |s| %>
+                      <% @staffs = s.email %>
+                      <li>
+                        <% text_field_tag :staffname %>
+                        <a><%= link_to @staffs.to_s[0], events_path( staffname: @staffs ) %></a>
+                      </li>
+                    <% end %>
+                  <% end %>              
+                </ul>
+              <% end %>
             </li>
           </ul>
         </div><!-- /.navbar-collapse -->
