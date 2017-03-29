@@ -89,10 +89,12 @@ class EventsController < ApplicationController
 		if current_user
 			if current_user.admin?
 				@events = Event.all
+				# 判斷Search
 				if params[:keyword]
 					k = "%#{params[:keyword]}%"
 					@events = @events.where( "name like ? or station like ?", k, k )	
 				end
+				# 判斷人員的events
 				if params[:staffname]
 					@staffs = User.all
 					s = "%#{params[:staffname]}%"
