@@ -5,6 +5,9 @@ class Event < ApplicationRecord
 							:phone, :contact, :email, :address,
 							:process, :assess, :use, :money, :effect
 	
+	# name唯一性
+	validates :name, uniqueness: true
+
 	belongs_to :user
 	has_many :messages
 
