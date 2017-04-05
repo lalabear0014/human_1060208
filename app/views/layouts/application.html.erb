@@ -54,12 +54,12 @@
           <ul class="nav navbar-nav navbar-right">
             <li>
               <!-- 確認@event存在且已存在資料庫 -->
-              <% if @events.to_a[0] == nil && @event.save %>
+              <% if @event && @event.save %>
                 <%= link_to "檔案列印(PDF)", event_path(@event, format: "pdf") %>
               <% end %>        
             </li>
             <li>
-              <% if @events.to_a[0] == nil && @event.save %>
+              <% if @event && @event.save %>
                 <% if current_user.admin? || current_user.boss? %>
                   <li>
                     <%= link_to('指導', new_event_message_path(@event)) %>
