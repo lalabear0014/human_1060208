@@ -39,8 +39,6 @@ gem 'prawn-table', '~> 0.1.0'
 
 gem 'simple_form'
 
-gem 'mysql2'
-
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks

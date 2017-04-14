@@ -1,5 +1,5 @@
 current directory: /Users/air/rb_practice/human_1060208/vendor/bundle/ruby/2.4.0/gems/bcrypt-3.1.11/ext/mri
-/usr/local/opt/ruby/bin/ruby -r ./siteconf20170405-63048-1okxqav.rb extconf.rb 
+/usr/local/opt/ruby/bin/ruby -r ./siteconf20170414-5592-1fvyhb8.rb extconf.rb 
 creating Makefile
 
 current directory: /Users/air/rb_practice/human_1060208/vendor/bundle/ruby/2.4.0/gems/bcrypt-3.1.11/ext/mri
@@ -48,4 +48,4 @@ linking shared-object bcrypt_ext.bundle
 
 current directory: /Users/air/rb_practice/human_1060208/vendor/bundle/ruby/2.4.0/gems/bcrypt-3.1.11/ext/mri
 make "DESTDIR=" install
-/usr/bin/install -c -m 0755 bcrypt_ext.bundle ./.gem.20170405-63048-1fr5lgk
+/usr/bin/install -c -m 0755 bcrypt_ext.bundle ./.gem.20170414-5592-1cjxueu
